@@ -26,30 +26,70 @@ export class MCPGateway {
   }
 
   /**
-   * Gateway'i başlat: alt MCP'lere bağlan ve tool'ları kaydet
+   * Gateway'i başlat: stdio'yu hemen aç, alt MCP'lere arka planda bağlan
    */
   async start(): Promise<void> {
     log("info", `🚀 ${this.config.name} v${this.config.version} başlatılıyor...`);
-    log("info", `📡 ${this.config.servers.length} sunucu yapılandırılmış.`);
 
-    // Alt MCP sunucularına bağlan
-    for (const serverConfig of this.config.servers) {
-      const connected = await this.connectionManager.connect(serverConfig);
+    // 1. HEMEN stdio transport'u aç (Claude Code anında bağlanabilsin)
+    const transport = new StdioServerTransport();
+    await this.server.connect(transport);
+    log("info", "🔗 stdio bağlantısı hazır.");
+
+    // 2. Alt MCP sunucularını arka planda bağla (await etmiyoruz)
+    this.connectSubServersInBackground();
+  }
+
+  /**
+   * Alt MCP sunucularına arka planda paralel bağlan
+   */
+  private connectSubServersInBackground(): void {
+    const enabledServers = this.config.servers.filter((s) => s.enabled !== false);
+    log("info", `📡 ${enabledServers.length} aktif sunucuya arka planda bağlanılıyor...`);
+
+    const CONNECTION_TIMEOUT = 15000;
+
+    for (const serverConfig of enabledServers) {
+      const timeout = serverConfig.timeout || CONNECTION_TIMEOUT;
+
+      this.connectWithTimeout(serverConfig, timeout).catch(() => {
+        // Hatalar connectWithTimeout içinde loglanıyor
+      });
+    }
+  }
+
+  /**
+   * Tek bir sunucuya timeout ile bağlan (unhandled rejection riski olmadan)
+   */
+  private async connectWithTimeout(
+    serverConfig: import("./types.js").ServerConfig,
+    timeout: number
+  ): Promise<void> {
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+
+    try {
+      const connected = await Promise.race([
+        this.connectionManager.connect(serverConfig),
+        new Promise<never>((_, reject) => {
+          timeoutId = setTimeout(() => reject(new Error(`Timeout: ${timeout}ms`)), timeout);
+        }),
+      ]);
+
+      // Bağlantı başarılı, timeout'u temizle
+      if (timeoutId) clearTimeout(timeoutId);
 
       if (connected.status === "connected") {
-        // Keşfedilen tool'ları gateway üzerinde kaydet
         for (const tool of connected.tools) {
           this.registerProxyTool(tool);
         }
+        log("info", `✅ [${serverConfig.name}] ${connected.tools.length} tool eklendi.`);
       }
+    } catch (err: unknown) {
+      // Timeout'u temizle (hata durumunda da)
+      if (timeoutId) clearTimeout(timeoutId);
+      const msg = err instanceof Error ? err.message : String(err);
+      log("error", `❌ [${serverConfig.name}] Bağlantı başarısız: ${msg}`);
     }
-
-    log("info", `✅ Toplam ${this.registeredTools.size} tool kaydedildi.`);
-
-    // Claude Code'a stdio üzerinden sun
-    const transport = new StdioServerTransport();
-    await this.server.connect(transport);
-    log("info", "🔗 Gateway hazır, Claude Code bağlantısı bekleniyor...");
   }
 
   /**

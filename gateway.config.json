@@ -5,21 +5,70 @@
   "logLevel": "info",
   "servers": [
     {
-      "name": "echo",
+      "name": "context7",
       "transport": "stdio",
-      "command": "node",
-      "args": ["./examples/echo-server/build/index.js"],
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp@latest"],
       "enabled": true,
       "autoReconnect": true,
-      "timeout": 5000
+      "timeout": 15000
     },
     {
-      "name": "math",
+      "name": "chrome-devtools",
       "transport": "stdio",
-      "command": "node",
-      "args": ["./examples/math-server/build/index.js"],
+      "command": "npx",
+      "args": ["-y", "chrome-devtools-mcp@latest"],
       "enabled": true,
-      "autoReconnect": true
+      "autoReconnect": true,
+      "timeout": 15000
+    },
+    {
+      "name": "puppeteer",
+      "transport": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-puppeteer"],
+      "enabled": true,
+      "autoReconnect": true,
+      "timeout": 15000
+    },
+    {
+      "name": "filesystem",
+      "transport": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/home/laserkopf"],
+      "enabled": true,
+      "autoReconnect": true,
+      "timeout": 10000
+    },
+    {
+      "name": "fetch",
+      "transport": "stdio",
+      "command": "npx",
+      "args": ["-y", "mcp-fetch"],
+      "enabled": true,
+      "autoReconnect": true,
+      "timeout": 10000
+    },
+    {
+      "name": "brave-search",
+      "transport": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-brave-search"],
+      "env": {
+        "BRAVE_API_KEY": "BSARiNJ09NM8otzEW3_SvOI97E0xkqz"
+      },
+      "enabled": true,
+      "autoReconnect": true,
+      "timeout": 10000
+    },
+    {
+      "name": "sequential-thinking",
+      "transport": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
+      "enabled": true,
+      "autoReconnect": true,
+      "timeout": 10000
     }
   ]
 }

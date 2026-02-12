@@ -40,8 +40,8 @@ process.on("uncaughtException", (err) => {
 });
 
 process.on("unhandledRejection", (reason) => {
-  log("error", `İşlenmemiş Promise reddi: ${reason}`);
-  process.exit(1);
+  // Arka plan bağlantı hatalarında process'i çökertme, sadece logla
+  log("warn", `İşlenmemiş Promise reddi: ${reason}`);
 });
 
 // Gateway'i başlat

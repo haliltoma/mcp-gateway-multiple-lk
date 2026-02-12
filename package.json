@@ -1,0 +1,46 @@
+{
+  "name": "mcp-gateway-multiple",
+  "version": "1.0.0",
+  "description": "MCP Gateway - Birden fazla MCP sunucusunu tek noktadan yönet",
+  "type": "module",
+  "bin": {
+    "mcp-gateway": "./build/index.js"
+  },
+  "main": "./build/index.js",
+  "scripts": {
+    "build": "tsc && chmod 755 build/index.js",
+    "dev": "tsx src/index.ts",
+    "start": "node build/index.js",
+    "build:echo": "tsc -p examples/echo-server/tsconfig.json",
+    "build:math": "tsc -p examples/math-server/tsconfig.json",
+    "build:examples": "npm run build:echo && npm run build:math",
+    "build:all": "npm run build && npm run build:examples",
+    "clean": "rm -rf build examples/*/build",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "build"
+  ],
+  "keywords": [
+    "mcp",
+    "gateway",
+    "proxy",
+    "claude",
+    "ai",
+    "model-context-protocol"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}

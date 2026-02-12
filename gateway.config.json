@@ -1,0 +1,25 @@
+{
+  "name": "mcp-gateway",
+  "version": "1.0.0",
+  "useNamespace": true,
+  "logLevel": "info",
+  "servers": [
+    {
+      "name": "echo",
+      "transport": "stdio",
+      "command": "node",
+      "args": ["./examples/echo-server/build/index.js"],
+      "enabled": true,
+      "autoReconnect": true,
+      "timeout": 5000
+    },
+    {
+      "name": "math",
+      "transport": "stdio",
+      "command": "node",
+      "args": ["./examples/math-server/build/index.js"],
+      "enabled": true,
+      "autoReconnect": true
+    }
+  ]
+}

@@ -69,6 +69,18 @@
       "enabled": true,
       "autoReconnect": true,
       "timeout": 10000
+    },
+    {
+      "name": "skills",
+      "transport": "stdio",
+      "command": "node",
+      "args": [
+        "/home/laserkopf/Desktop/freelance/mcp-gateway-multiple-lk/build/skills-server.js",
+        "--skills-dir=/home/laserkopf/Desktop/freelance/mcp-gateway-multiple-lk/.claude/skills"
+      ],
+      "enabled": true,
+      "autoReconnect": true,
+      "timeout": 5000
     }
   ]
 }

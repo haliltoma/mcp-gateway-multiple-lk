@@ -76,3 +76,5 @@ Proje ile birlikte gelen Claude Code skill'leri (`.claude/skills/`):
 | `/performance-audit` | Core Web Vitals, bundle size, caching analizi |
 | `/seo-optimize` | Meta tags, structured data, sitemap, teknik SEO |
 | `/dark-mode` | Tema sistemi (toggle, localStorage, FOUC önleme, smooth transition) |
+| `/frontend-design` | Anthropic resmi - Distinctive, production-grade UI (anti-AI-slop, bold aesthetics) |
+| `/ralph-loop` | Anthropic Ralph Wiggum - Otonom iteratif dev döngüsü (TDD, build-fix-test) |

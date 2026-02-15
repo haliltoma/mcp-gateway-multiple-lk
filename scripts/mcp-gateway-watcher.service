@@ -1,0 +1,16 @@
+[Unit]
+Description=MCP Gateway TypeScript Watch Builder
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/home/laserkopf/Desktop/freelance/mcp-gateway-multiple-lk/scripts/watch-build.sh
+WorkingDirectory=/home/laserkopf/Desktop/freelance/mcp-gateway-multiple-lk
+Environment=PATH=/home/laserkopf/.nvm/versions/node/v24.12.0/bin:/usr/local/bin:/usr/bin:/bin
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target

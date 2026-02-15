@@ -16,6 +16,7 @@
     "build:examples": "npm run build:echo && npm run build:math",
     "build:all": "npm run build && npm run build:examples",
     "clean": "rm -rf build examples/*/build",
+    "watch": "tsc --watch --preserveWatchOutput",
     "prepublishOnly": "npm run build"
   },
   "files": [

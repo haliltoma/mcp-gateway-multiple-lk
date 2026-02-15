@@ -60,3 +60,19 @@ Proje ile birlikte gelen Claude Code skill'leri (`.claude/skills/`):
 | `/gateway-logs` | Log analizi |
 | `/deploy` | Yeni makineye kurulum |
 | `/backup-config` | Config yedekleme/geri yükleme |
+
+### Frontend Skills
+
+| Skill | Açıklama |
+|-------|----------|
+| `/ui-component` | Production-grade UI component (design tokens, a11y, dark mode, micro-interactions) |
+| `/landing-page` | High-converting landing page (hero, pricing, testimonials, scroll animations) |
+| `/dashboard` | Data-driven admin dashboard (charts, KPI cards, tables, real-time) |
+| `/animation` | Gelişmiş CSS/JS animasyonlar (scroll-driven, physics-based, micro-interactions) |
+| `/design-system` | Sıfırdan design system (color, typography, spacing, 20+ component) |
+| `/form-builder` | Multi-step form wizard (validation, drag-drop upload, auto-save) |
+| `/accessibility-audit` | WCAG 2.1 AA/AAA denetimi ve otomatik düzeltme |
+| `/responsive-layout` | Modern CSS layout (Grid, Container Queries, fluid design) |
+| `/performance-audit` | Core Web Vitals, bundle size, caching analizi |
+| `/seo-optimize` | Meta tags, structured data, sitemap, teknik SEO |
+| `/dark-mode` | Tema sistemi (toggle, localStorage, FOUC önleme, smooth transition) |
